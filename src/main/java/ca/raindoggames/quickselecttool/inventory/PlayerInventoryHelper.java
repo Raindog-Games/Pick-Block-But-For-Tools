@@ -1,7 +1,6 @@
 package ca.raindoggames.quickselecttool.inventory;
 
-import static ca.raindoggames.quickselecttool.QuickPickToolMod.LOGGER;
-
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 
@@ -21,8 +20,7 @@ public class PlayerInventoryHelper {
 	// 2. named
 	// 3. most enchantments
 	// tie first best found
-	public void selectTool(PlayerInventory inventory, String tool) {
-		ItemStack bestStack = null;
+	public void selectTool(PlayerInventory inventory, String tool, ClientPlayerInteractionManager interactionManager) {
 		int material = 0;
 		boolean named = false;
 		int numEnchants = 0;
@@ -34,32 +32,34 @@ public class PlayerInventoryHelper {
 			// Find the best item
 			if (stackString.contains(tool)) {
 				// decide best tool
-				if (bestStack == null) {
+				if (bestIndex == -1) {
 					replace = true;
 				} else {
-					if (this.matchMaterial(stackString) > material) {
+					int curMaterial = this.matchMaterial(stackString);
+					if (curMaterial > material) {
 						replace = true;
-					} else if (this.matchMaterial(stackString) == material && curStack.getName().asString() != "" && !named) {
+					} else if (curMaterial == material && curStack.getName().asString() != "" && !named) {
 						replace = true;
-					} else if (this.matchMaterial(stackString) == material && curStack.getName().asString() != "" && !named && curStack.getEnchantments().size() > numEnchants) {
+					} else if (curMaterial == material && curStack.getName().asString() != "" && curStack.getEnchantments().size() > numEnchants) {
 						replace = true;
 					}
 				}
 				
 				if (replace) {
-					bestStack = curStack;
 					material = this.matchMaterial(stackString);
 					named = curStack.getName().asString() != "";
 					numEnchants = curStack.getEnchantments().size();
 					bestIndex = i;
 				}
 			}
+		}
 			
-			// Place the best item in your toolbar or select it if there
-			if (bestIndex > -1) {
-				if (PlayerInventory.isValidHotbarIndex(bestIndex)) {
-					inventory.selectedSlot = bestIndex;
-				}
+		// Place the best item in your toolbar or select it if there
+		if (bestIndex > -1) {
+			if (PlayerInventory.isValidHotbarIndex(bestIndex)) {
+				inventory.selectedSlot = bestIndex;
+			} else {
+				interactionManager.pickFromInventory(bestIndex);
 			}
 		}
 	}
