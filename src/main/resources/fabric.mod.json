@@ -1,36 +1,39 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
-  "version": "${version}",
+  "id": "quickpicktool",
+  "version": "0.1.0",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "QuickSelectTool",
+  "description": "This mod allows you to quick pick the tool to break the block you clicked on",
   "authors": [
-    "Me!"
+    "slaterb1"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://raindoggames.ca/",
+    "sources": "https://github.com/slaterb1/QuickPickTool"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/quickselecttool/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "ca.raindoggames.quickselecttool.QuickPickToolMod"
+    ],
+    "client": [
+      "ca.raindoggames.quickselecttool.client.ClientEntryPoint"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.12.12",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "java": ">=17"
+    "java": ">=17",
+    "fabric-key-binding-api-v1": "*"
   },
   "suggests": {
     "another-mod": "*"
