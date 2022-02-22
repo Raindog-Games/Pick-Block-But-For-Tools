@@ -75,7 +75,7 @@ publishing {
 curseforge {
 	apiKey = ''
 	project {
-		id = ''
+		id = '112233'
 		changelog = '''
 		- Holding 'B' and middle clicking block selects tool in inventory to break block
 		- Hotkey can be changed in Options > Controls > Keybinds
