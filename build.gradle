@@ -75,7 +75,7 @@ publishing {
 curseforge {
 	apiKey = ''
 	project {
-		id = '112233'
+		id = '582529'
 		changelog = '''
 		- Holding 'B' and middle clicking block selects tool in inventory to break block
 		- Hotkey can be changed in Options > Controls > Keybinds
@@ -84,7 +84,7 @@ curseforge {
 		addGameVersion project.minecraft_version
 		
 		mainArtifact(jar) {
-			displayName = "Quick Select Tool to Break Blocks: $project.mod_version"
+			displayName = "Pick Block But For Tools: $project.mod_version"
 		}
 	}
 }
