@@ -1,4 +1,4 @@
-# Quick Pick Tool
+# Pick Block But For Tools
 
 <img src="src/main/resources/assets/quickpicktool/icon.png"  width="400" />
 
