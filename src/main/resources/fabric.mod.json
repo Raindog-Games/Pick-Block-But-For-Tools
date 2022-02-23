@@ -3,7 +3,7 @@
   "id": "quickpicktool",
   "version": "0.1.0",
 
-  "name": "QuickSelectTool",
+  "name": "QuickPickTool",
   "description": "This mod allows you to quick pick the tool to break the block you clicked on",
   "authors": [
     "slaterb1"
@@ -14,15 +14,15 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/quickselecttool/icon.png",
+  "icon": "assets/quickpicktool/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "ca.raindoggames.quickselecttool.QuickPickToolMod"
+      "ca.raindoggames.quickpicktool.QuickPickToolMod"
     ],
     "client": [
-      "ca.raindoggames.quickselecttool.client.ClientEntryPoint"
+      "ca.raindoggames.quickpicktool.client.ClientEntryPoint"
     ]
   },
   "mixins": [

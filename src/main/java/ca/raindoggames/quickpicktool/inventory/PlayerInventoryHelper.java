@@ -1,4 +1,4 @@
-package ca.raindoggames.quickselecttool.inventory;
+package ca.raindoggames.quickpicktool.inventory;
 
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;

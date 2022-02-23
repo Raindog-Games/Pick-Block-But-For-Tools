@@ -1,4 +1,4 @@
-package ca.raindoggames.quickselecttool;
+package ca.raindoggames.quickpicktool;
 
 import net.fabricmc.api.ModInitializer;
 
