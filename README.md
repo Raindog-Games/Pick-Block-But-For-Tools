@@ -1,6 +1,5 @@
-# Quick Pick Tool
-
 <img src="src/main/resources/assets/quickpicktool/icon.png"  width="400" />
+# Quick Pick Tool
 
 This fabric mod allows the Player to use the quick pick block action to instead pick the tool that best breaks the block.  
 
