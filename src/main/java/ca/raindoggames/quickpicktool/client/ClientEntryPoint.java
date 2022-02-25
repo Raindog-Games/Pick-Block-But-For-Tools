@@ -16,6 +16,7 @@ import net.minecraft.tag.BlockTags;
 
 public class ClientEntryPoint implements ClientModInitializer {
 	
+	boolean keyHeld = false;
 	private ClientPlayerInteractionManager interactionManager = null;
 	PlayerInventoryHelper helper = new PlayerInventoryHelper();
 	
@@ -38,13 +39,19 @@ public class ClientEntryPoint implements ClientModInitializer {
 			if (this.interactionManager == null) {
 				this.interactionManager = client.interactionManager;
 			}
+			
+			if (keyBinding.isPressed()) {
+				this.keyHeld = true;
+			} else {
+				this.keyHeld = false;
+			}
 		});
 		
 		
 		// stack information is returned regardless of the block being in the player inventory or not
 		ClientPickBlockApplyCallback.EVENT.register((player, hitResult, _stack) -> {		
 			ItemStack stack = _stack;
-			if (keyBinding.isPressed()) {
+			if (this.keyHeld) {
 				// replaces action with pick tool action				
 				Block block = Block.getBlockFromItem(stack.getItem());
 				if (BlockTags.SHOVEL_MINEABLE.contains(block)) {
