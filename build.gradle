@@ -77,14 +77,11 @@ curseforge {
 	project {
 		id = '582529'
 		changelog = '''
-		- Holding 'B' and middle clicking block selects tool in inventory to break block
-		- Hotkey can be changed in Options > Controls > Keybinds
+		- Corrected upload file
 		'''
 		releaseType = 'release'
 		addGameVersion project.minecraft_version
 		
-		mainArtifact(jar) {
-			displayName = "Pick Block But For Tools: $project.mod_version"
-		}
+		mainArtifact(remapJar)
 	}
 }
