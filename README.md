@@ -14,7 +14,7 @@ To use this feature hold "B" (default key binding) and middle click on the block
 
 ## Dependencies
 This is a Fabric mod (at this time) and requires the following:
-- minecraft 1.18.1
+- minecraft 1.18
 - java 17
 - fabric-api 0.46.4+
 

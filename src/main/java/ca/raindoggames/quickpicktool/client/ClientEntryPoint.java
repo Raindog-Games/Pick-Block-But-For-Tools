@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.event.client.player.ClientPickBlockApplyCallback;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -49,18 +50,19 @@ public class ClientEntryPoint implements ClientModInitializer {
 		
 		
 		// stack information is returned regardless of the block being in the player inventory or not
-		ClientPickBlockApplyCallback.EVENT.register((player, hitResult, _stack) -> {		
+		ClientPickBlockApplyCallback.EVENT.register((player, hitResult, _stack) -> {
 			ItemStack stack = _stack;
 			if (this.keyHeld) {
 				// replaces action with pick tool action				
 				Block block = Block.getBlockFromItem(stack.getItem());
-				if (BlockTags.SHOVEL_MINEABLE.contains(block)) {
+				BlockState state = block.getDefaultState();
+				if (state.isIn(BlockTags.SHOVEL_MINEABLE)) {
 					helper.selectTool(player.getInventory(), "_shovel", this.interactionManager);
-				} else if (BlockTags.PICKAXE_MINEABLE.contains(block)) {
+				} else if (state.isIn(BlockTags.PICKAXE_MINEABLE)) {
 					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager);
-				} else if (BlockTags.AXE_MINEABLE.contains(block)) {
+				} else if (state.isIn(BlockTags.AXE_MINEABLE)) {
 					helper.selectTool(player.getInventory(), "_axe", this.interactionManager);
-				} else if (BlockTags.HOE_MINEABLE.contains(block)) {
+				} else if (state.isIn(BlockTags.HOE_MINEABLE)) {
 					helper.selectTool(player.getInventory(), "_hoe", this.interactionManager);
 				}
 				return ItemStack.EMPTY;
@@ -68,6 +70,5 @@ public class ClientEntryPoint implements ClientModInitializer {
 			// continue to return selected block if hotkey not pressed
 			return stack;
 		});
-		
 	}
 }
