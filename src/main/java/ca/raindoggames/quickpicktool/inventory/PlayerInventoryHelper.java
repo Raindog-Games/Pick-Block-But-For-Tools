@@ -1,7 +1,5 @@
 package ca.raindoggames.quickpicktool.inventory;
 
-import static ca.raindoggames.quickpicktool.QuickPickToolMod.LOGGER;
-
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -19,6 +17,8 @@ public class PlayerInventoryHelper {
 	private static int NETHERITE = 5;
 	
 	// Weight which tool should be returned
+	// requires silk_touch if save block
+	// prioritizes fortune on break block
 	// 1. highest level [nether, diamond, iron, gold, stone, wood]
 	// 2. named
 	// 3. most enchantments
@@ -32,7 +32,6 @@ public class PlayerInventoryHelper {
 		for (int i = 0; i < inventory.main.size(); ++i) {
 			ItemStack curStack = inventory.main.get(i);
 			String stackString = curStack.toString();
-			LOGGER.info(stackString);
 			boolean replace = false;
 			// Find the best item
 			if (stackString.contains(tool)) {
