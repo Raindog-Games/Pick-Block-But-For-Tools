@@ -2,23 +2,22 @@
 
 <img src="src/main/resources/assets/quickpicktool/icon.png"  width="400" />
 
-This fabric mod allows the Player to use the quick pick block action to instead pick the tool that best breaks the block.  
+This fabric mod allows the Player to use the Pick Block like action to instead pick the tool that best breaks or saves the block. This action does not override the main Minecraft Pick Block action
 
-To use this feature hold "B" (default key binding) and middle click on the block to select the tool.
+To use the break feature hold "B" (default key binding) and middle click on the block to select the best breaking tool (prioritizes fortune).
+
+To use the "save" feature hold "V" (default key binding) and middle click on the block to select the best silk touch tool.
 
 ## Features
 - Selects pickaxe for stone like blocks
 - Selects axe for wood like blocks
 - Selects shovel for dirt like blocks
 - Selects hoe for leave like blocks
+- Selects shears for wool like blocks and vine like blocks
+- Save hotkey chooses best silk touch tool
 
 ## Dependencies
 This is a Fabric mod (at this time) and requires the following:
 - minecraft 1.18
 - java 17
 - fabric-api 0.46.4+
-
-## Upcoming Features
-- Adding Quick Save Block feature for silk touch priority tools
-- Add glass tool blocks
-- Add shear tool blocks
