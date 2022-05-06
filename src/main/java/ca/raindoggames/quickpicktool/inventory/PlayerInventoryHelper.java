@@ -3,6 +3,7 @@ package ca.raindoggames.quickpicktool.inventory;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtList;
 
 public class PlayerInventoryHelper {
 	
@@ -16,13 +17,16 @@ public class PlayerInventoryHelper {
 	private static int NETHERITE = 5;
 	
 	// Weight which tool should be returned
+	// requires silk_touch if save block
+	// prioritizes fortune on break block
 	// 1. highest level [nether, diamond, iron, gold, stone, wood]
 	// 2. named
 	// 3. most enchantments
 	// tie first best found
-	public void selectTool(PlayerInventory inventory, String tool, ClientPlayerInteractionManager interactionManager) {
+	public void selectTool(PlayerInventory inventory, String tool, ClientPlayerInteractionManager interactionManager, boolean silkTouch) {
 		int material = 0;
 		boolean named = false;
+		boolean fortune = false;
 		int numEnchants = 0;
 		int bestIndex = -1;
 		for (int i = 0; i < inventory.main.size(); ++i) {
@@ -31,6 +35,14 @@ public class PlayerInventoryHelper {
 			boolean replace = false;
 			// Find the best item
 			if (stackString.contains(tool)) {
+				// skip tool if not silk_touch
+				NbtList enchantments = curStack.getEnchantments();
+				if (silkTouch && enchantments.asString().indexOf("silk_touch") == -1) {
+					continue;
+				} else if (!silkTouch && enchantments.asString().indexOf("silk_touch") > -1) {
+					continue;
+				}
+				
 				// decide best tool
 				if (bestIndex == -1) {
 					replace = true;
@@ -40,7 +52,18 @@ public class PlayerInventoryHelper {
 						replace = true;
 					} else if (curMaterial == material && curStack.getName().asString() != "" && !named) {
 						replace = true;
-					} else if (curMaterial == material && curStack.getName().asString() != "" && curStack.getEnchantments().size() > numEnchants) {
+					} else if (curMaterial == material && curStack.getName().asString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1 && !fortune)) {
+						replace = true;
+					} else if (curMaterial == material && curStack.getName().asString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1) && enchantments.size() > numEnchants) {
+						replace = true;
+					} else if (curMaterial == material && curStack.getName().asString() != "" && !fortune && enchantments.size() > numEnchants) {
+						replace = true;
+					// Set of cases where tools are not named just enchanted
+					} else if (curMaterial == material && !named && (!silkTouch && enchantments.asString().indexOf("fortune") > -1 && !fortune)) {
+						replace = true;
+					} else if (curMaterial == material && !named && (!silkTouch && enchantments.asString().indexOf("fortune") > -1) && enchantments.size() > numEnchants) {
+						replace = true;
+					} else if (curMaterial == material && !named && !fortune && enchantments.size() > numEnchants) {
 						replace = true;
 					}
 				}
@@ -48,7 +71,8 @@ public class PlayerInventoryHelper {
 				if (replace) {
 					material = this.matchMaterial(stackString);
 					named = curStack.getName().asString() != "";
-					numEnchants = curStack.getEnchantments().size();
+					fortune = enchantments.asString().indexOf("fortune") > -1;
+					numEnchants = enchantments.size();
 					bestIndex = i;
 				}
 			}

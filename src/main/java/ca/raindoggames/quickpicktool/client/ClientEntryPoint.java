@@ -2,6 +2,7 @@ package ca.raindoggames.quickpicktool.client;
 
 import static ca.raindoggames.quickpicktool.QuickPickToolMod.LOGGER;
 
+import ca.raindoggames.quickpicktool.blocktags.ToolBlockTags;
 import ca.raindoggames.quickpicktool.inventory.PlayerInventoryHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -17,16 +18,24 @@ import net.minecraft.tag.BlockTags;
 
 public class ClientEntryPoint implements ClientModInitializer {
 	
-	boolean keyHeld = false;
+	boolean breakHeld = false;
+	boolean saveHeld = false;
 	private ClientPlayerInteractionManager interactionManager = null;
 	PlayerInventoryHelper helper = new PlayerInventoryHelper();
 	
 	
 	// Add KeyBinding declaration and registration here	
-	private static KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-			"key.quickpicktool.select",
+	private static KeyBinding keyBindingBreak = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+			"key.quickpicktool.break",
 			InputUtil.Type.KEYSYM,
 			InputUtil.GLFW_KEY_B,
+			"category.quickpicktool.utils"
+		));
+	
+	private static KeyBinding keyBindingSave = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+			"key.quickpicktool.save",
+			InputUtil.Type.KEYSYM,
+			InputUtil.GLFW_KEY_V,
 			"category.quickpicktool.utils"
 		));
 	
@@ -41,10 +50,16 @@ public class ClientEntryPoint implements ClientModInitializer {
 				this.interactionManager = client.interactionManager;
 			}
 			
-			if (keyBinding.isPressed()) {
-				this.keyHeld = true;
+			if (keyBindingBreak.isPressed()) {
+				this.breakHeld = true;
 			} else {
-				this.keyHeld = false;
+				this.breakHeld = false;
+			}
+			
+			if (keyBindingSave.isPressed()) {
+				this.saveHeld = true;
+			} else {
+				this.saveHeld = false;
 			}
 		});
 		
@@ -52,18 +67,41 @@ public class ClientEntryPoint implements ClientModInitializer {
 		// stack information is returned regardless of the block being in the player inventory or not
 		ClientPickBlockApplyCallback.EVENT.register((player, hitResult, _stack) -> {
 			ItemStack stack = _stack;
-			if (this.keyHeld) {
+			if (this.breakHeld) {
 				// replaces action with pick tool action				
 				Block block = Block.getBlockFromItem(stack.getItem());
 				BlockState state = block.getDefaultState();
-				if (state.isIn(BlockTags.SHOVEL_MINEABLE)) {
-					helper.selectTool(player.getInventory(), "_shovel", this.interactionManager);
+				if (state.isIn(ToolBlockTags.SHEAR_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "shears", this.interactionManager, false);
+				} else if (state.isIn(ToolBlockTags.SILK_TOUCH_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager, false);
+				} else if (state.isIn(BlockTags.SHOVEL_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_shovel", this.interactionManager, false);
 				} else if (state.isIn(BlockTags.PICKAXE_MINEABLE)) {
-					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager);
+					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager, false);
 				} else if (state.isIn(BlockTags.AXE_MINEABLE)) {
-					helper.selectTool(player.getInventory(), "_axe", this.interactionManager);
+					helper.selectTool(player.getInventory(), "_axe", this.interactionManager, false);
 				} else if (state.isIn(BlockTags.HOE_MINEABLE)) {
-					helper.selectTool(player.getInventory(), "_hoe", this.interactionManager);
+					helper.selectTool(player.getInventory(), "_hoe", this.interactionManager, false);
+				}
+				return ItemStack.EMPTY;
+			}
+			if (this.saveHeld) {
+				// replaces action with pick tool action				
+				Block block = Block.getBlockFromItem(stack.getItem());
+				BlockState state = block.getDefaultState();
+				if (state.isIn(ToolBlockTags.SHEAR_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "shears", this.interactionManager, false);
+				} else if (state.isIn(ToolBlockTags.SILK_TOUCH_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager, true);
+				} else if (state.isIn(BlockTags.SHOVEL_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_shovel", this.interactionManager, true);
+				} else if (state.isIn(BlockTags.PICKAXE_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_pickaxe", this.interactionManager, true);
+				} else if (state.isIn(BlockTags.AXE_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_axe", this.interactionManager, true);
+				} else if (state.isIn(BlockTags.HOE_MINEABLE)) {
+					helper.selectTool(player.getInventory(), "_hoe", this.interactionManager, true);
 				}
 				return ItemStack.EMPTY;
 			}
