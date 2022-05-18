@@ -12,9 +12,10 @@ To use the "save" feature hold "V" (default key binding) and middle click on the
 - Selects pickaxe for stone like blocks
 - Selects axe for wood like blocks
 - Selects shovel for dirt like blocks
-- Selects hoe for leave like blocks
-- Selects shears for wool like blocks and vine like blocks
-- Save hotkey chooses best silk touch tool
+- Selects hoe for leaf like blocks (1.18.2+)
+- Selects shears for wool like blocks and vine like blocks (1.18.2+)
+- Selects pickaxe for glass like blocks (1.18.2+)
+- Save hotkey chooses best silk touch tool (1.18.2+)
 
 ## Dependencies
 This is a Fabric mod (at this time) and requires the following:
