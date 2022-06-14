@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.11-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 }
@@ -77,7 +77,7 @@ curseforge {
 	project {
 		id = '582529'
 		changelog = '''
-		- Updated codebase for minecraft 1.18.2
+		- Release for minecraft 1.9
 		'''
 		releaseType = 'release'
 		addGameVersion project.minecraft_version
