@@ -50,13 +50,13 @@ public class PlayerInventoryHelper {
 					int curMaterial = this.matchMaterial(stackString);
 					if (curMaterial > material) {
 						replace = true;
-					} else if (curMaterial == material && curStack.getName().asString() != "" && !named) {
+					} else if (curMaterial == material && curStack.getName().getString() != "" && !named) {
 						replace = true;
-					} else if (curMaterial == material && curStack.getName().asString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1 && !fortune)) {
+					} else if (curMaterial == material && curStack.getName().getString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1 && !fortune)) {
 						replace = true;
-					} else if (curMaterial == material && curStack.getName().asString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1) && enchantments.size() > numEnchants) {
+					} else if (curMaterial == material && curStack.getName().getString() != "" && (!silkTouch && enchantments.asString().indexOf("fortune") > -1) && enchantments.size() > numEnchants) {
 						replace = true;
-					} else if (curMaterial == material && curStack.getName().asString() != "" && !fortune && enchantments.size() > numEnchants) {
+					} else if (curMaterial == material && curStack.getName().getString() != "" && !fortune && enchantments.size() > numEnchants) {
 						replace = true;
 					// Set of cases where tools are not named just enchanted
 					} else if (curMaterial == material && !named && (!silkTouch && enchantments.asString().indexOf("fortune") > -1 && !fortune)) {
@@ -70,7 +70,7 @@ public class PlayerInventoryHelper {
 				
 				if (replace) {
 					material = this.matchMaterial(stackString);
-					named = curStack.getName().asString() != "";
+					named = curStack.getName().getString() != "";
 					fortune = enchantments.asString().indexOf("fortune") > -1;
 					numEnchants = enchantments.size();
 					bestIndex = i;
