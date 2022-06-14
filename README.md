@@ -19,6 +19,6 @@ To use the "save" feature hold "V" (default key binding) and middle click on the
 
 ## Dependencies
 This is a Fabric mod (at this time) and requires the following:
-- minecraft 1.18
+- minecraft [1.18, 1.19]
 - java 17
 - fabric-api 0.46.4+
