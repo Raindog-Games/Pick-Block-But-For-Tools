@@ -35,6 +35,7 @@
         "minecraft:magenta_stained_glass_pane",
         "minecraft:purple_stained_glass",
         "minecraft:purple_stained_glass_pane",
-        "minecraft:tinted_glass"
+        "minecraft:tinted_glass",
+        "minecraft:glowstone"
     ]
 }
