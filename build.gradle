@@ -77,7 +77,8 @@ curseforge {
 	project {
 		id = '582529'
 		changelog = '''
-		- Corrected keybinding translation key
+		- Corrected crimsom_stem blocks
+		- Added glowstone
 		'''
 		releaseType = 'release'
 		addGameVersion project.minecraft_version
