@@ -14,7 +14,7 @@ import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.registry.tag.BlockTags;
 
 public class ClientEntryPoint implements ClientModInitializer {
 	
