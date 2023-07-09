@@ -77,7 +77,7 @@ curseforge {
 	project {
 		id = '582529'
 		changelog = '''
-		- Made mod 1.19.3 compatible
+		- Made mod 1.20 compatible
 		'''
 		releaseType = 'release'
 		addGameVersion project.minecraft_version
